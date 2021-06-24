@@ -117,8 +117,7 @@ export function checkError(data: SudokuElList[]) {
       const el = copy[i][j];
       if (!el.readonly) {
         const arr = takeSurplusArr(transformArr, j, i, { excludeSelf: true });
-        console.log(arr);
-        console.log({i, j});
+        data[i][j].error = false;
         if (!arr.includes(transformArr[i][j])) {
           result.push([i, j]);
         }

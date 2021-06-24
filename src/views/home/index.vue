@@ -45,9 +45,9 @@
 </template>
 
 <script lang="ts">
-import { AppStore } from "../../store/modules/app";
 import { drawNinePlaceGrid, digHole, SudokuElList, checkError } from "../../utils/sudoku";
 import { defineComponent, onMounted, reactive, ref } from "vue";
+import { useKeydown } from "../../hooks/useKeydown";
 
 type EditMode = 0 | 1;
 
@@ -67,6 +67,11 @@ export default defineComponent({
       let levelNum = Number(level) || 3;
       levelNum = levelNum > 9 ? 9 : levelNum < 1 ? 1 : levelNum;
       data.grid = digHole(drawNinePlaceGrid(), levelNum * 7);
+
+      useKeydown([1, 2, 3, 4, 5, 6, 7, 8, 9].map(d => String(d)), (e: KeyboardEvent) => {
+        fill(Number(e.key));
+        console.log('输出', e.key);
+      });
     });
 
     const fill = (key: number) => {
